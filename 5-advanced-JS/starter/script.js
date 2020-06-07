@@ -364,152 +364,185 @@ johnFriendly('night');
 ////////////////////////////////////////
 // CODING CHALLENGE
 
-var Question = function(question, answers, correctAnswer) {
-    this.question = question;
-    this.answers = answers;
-    this.correctAnswer = correctAnswer;
-    this.displayQandA = function() {
-
-        console.log(this.question);
-        var numberOfAnswers = this.answers.length;
-        // var randomNumber = Math.floor(Math.random() * Math.floor(numberOfAnswers));
-        for (i = 0; i < numberOfAnswers; i++) {
-            console.log((i + 1) + ' - ' + this.answers[i]);
-            // console.log(this.correctAnswer);
-        }
+/*
+(function() {
+    function Question(question, answers, correctAnswer) {
+        this.question = question;
+        this.answers = answers;
+        this.correctAnswer = correctAnswer;
     }
-    this.isCorrect = function() {
-        var ca = this.correctAnswer + 1;
-        var userInput = prompt('Enter the NUMBER of your answer (or "exit"):');
-        // var z;
-        // console.log(ca);
-        // switch (prompt('Enter the NUMBER of your answer:')) {
-        //     case correctAnswer + 1:
-        //         console.log('That is CORRECT! One point earned!');
-        //         break;
-        //     case 'exit':
-        //         console.log('exiting game - GOODBYE!!');
-        //         return;    
-        //     default:
-        //         console.log('Nope!');    
-        // }
-        
-        if ('exit' == userInput || 'quit' == userInput) {
-            console.log('exiting game - GOODBYE!! (refresh page to play again)');
-            gameVar[1] = 1;
-            return gameVar;
-        } else if (userInput == this.correctAnswer + 1) {
-            console.log(`>>> Answer #${userInput} is CORRECT! One point earned!`);
-            gameVar[0] += 1;
-            console.log('SCORE: ' + gameVar[0]);
-            console.log('');
-        } else {
-            console.log(`>>> Nope! Answer #${userInput} was FALSE`);
-            console.log('SCORE: ' + gameVar[0]);
-            console.log('');
-        }
-
-
-        // if (prompt('Enter the NUMBER of your answer:') == this.correctAnswer + 1) {
-        //     console.log('That is CORRECT! One point earned!');
-        // } else if ('exit' == prompt('Enter the NUMBER of your answer:')) {
-        //     console.log('exiting game - GOODBYE!!');
-        //     return;
-        // } else {
-        //     console.log('Nope!');
-        // }
-    }
-}
-
-
-// var answers1 = ['Henk', 'Rob', 'Leon', 'Bert'];
-// var q1 = new Question('What is your name?', answers1, 1);
-
-// var answers2 = ['green', 'black', 'pink', 'silver', 'maroon'];
-// var q2 = new Question('What is the sexiest color in the world?', answers2, 3);
-
-// var answers3 = ['James Brown', 'Bootsie Collins', 'Prince', 'Mick Jagger', 'Mel Gibson'];
-// var q3 = new Question('Who\'s your daddy?', answers3, 2);
-
-// var answers4 = ['in a bit', 'later gator', 'too soon, chump', 'what the?'];
-// var q4 = new Question('How soon is now?', answers4, 0);
-
-// var allQuestions = [q1, q2, q3, q4];
-
-// var randomQandA = function(q) {
-//         var numberOfQuestions = q.length;
-//         var randomNumber = Math.floor(Math.random() * Math.floor(numberOfQuestions));
-//         console.log(q[randomNumber].question);
-
-//         var a = q[randomNumber].answers;
-//         // var ca = q[randomNumber].correctAnswer;
-//         var numberOfAnswers = a.length;
-//         for (i = 0; i < numberOfAnswers; i++) {
-//             console.log((i + 1) + ' - ' + a[i]);
-//         }
-//         q[randomNumber].isCorrect();
-//     }   
-
-// randomQandA(allQuestions);
-
-var answers1, answers2, answers3, answers4, answers5, answers6, answers7, q1, q2, q3, q4, q5, q6, q7, allQuestions;
-// gameVar[0] is score, gameVar[1] is exitcode (0 = keep playing, 1 = exit game)
-var gameVar = [];
-
-answers1 = ['Henk', 'Rob', 'Leon', 'Bert'];
-q1 = new Question('What is your name?', answers1, 1);
-
-answers2 = ['green', 'black', 'pink', 'silver', 'maroon'];
-q2 = new Question('What is the sexiest color in the world?', answers2, 3);
-
-answers3 = ['James Brown', 'Bootsie Collins', 'Prince', 'Mick Jagger', 'Mel Gibson'];
-q3 = new Question('Who\'s your daddy?', answers3, 2);
-
-answers4 = ['in a bit', 'later gator', 'too soon, chump', 'what the?'];
-q4 = new Question('How soon is now?', answers4, 0);
-
-answers5 = ['Hotel Buiten', 'Lely', 'Toussaint', 'Steiger 4'];
-q5 = new Question('The most romantic Amsterdam hangout is? (even more than the others:-))', answers5, 2);
-
-answers6 = ['Pizza', 'Eggs', 'Yoghurt', 'Guitar'];
-q6 = new Question('What\'s for breakfast?', answers6, 3);
-
-answers7 = ['Ella', 'Amy', 'Aretha', 'Femke'];
-q7 = new Question('Who\'s your mommy?', answers7, 2);
-
-allQuestions = [q1, q2, q3, q4, q5, q6, q7];
-
-(function(q) {
     
-    function init() {
-        gameVar = [0,0];
+    Question.prototype.displayQandA = function() {
+        console.log(this.question);
+
+        for (var i = 0; i < this.answers.length; i++) {
+            console.log((i + 1) + ' - ' + this.answers[i]);
+        }
     }
+    
+    Question.prototype.isCorrect = function(userInput) {
+    
+            var correctAnswerNumber = this.correctAnswer + 1;
+            
+            if ('exit' == userInput || 'quit' == userInput) {
+                console.log('exiting game - GOODBYE!! (refresh page to play again)');
+                gameVar[1] = 1;
+                return gameVar;
+            } else if (userInput == correctAnswerNumber) {
+                console.log(`>>> Answer #${userInput} is CORRECT! One point earned!`);
+                gameVar[0] += 1;
+                console.log('SCORE: ' + gameVar[0]);
+                console.log('');
+            } else {
+                console.log(`>>> Nope! Answer #${userInput} was FALSE`);
+                console.log('SCORE: ' + gameVar[0]);
+                console.log('');
+            }
+    }
+    
+    
+    var q1, q2, q3, q4, q5, q6, q7, q8, allQuestions;
+    // gameVar[0] is score, gameVar[1] is exitcode (0 = keep playing, 1 = exit game)
+    var gameVar = [];
+    
+    q1 = new Question('What is your name?', ['Henk', 'Rob', 'Leon', 'Bert'], 1);
+    
+    q2 = new Question('What is the sexiest color in the world?', ['green', 'black', 'pink', 'silver', 'maroon'], 3);
+    
+    q3 = new Question('Who\'s your daddy?', ['James Brown', 'Bootsie Collins', 'Prince', 'Mick Jagger', 'all of the above!'], 4);
+    
+    q4 = new Question('How soon is now?', ['in a bit', 'later gator', 'too soon, chump', 'what the?'], 0);
+    
+    q5 = new Question('The most romantic Amsterdam hangout is?', ['Hotel Buiten', 'Lely', 'Toussaint', 'Steiger 4', 'all of the above!'], 4);
+    
+    q6 = new Question('What\'s for breakfast?', ['Pizza', 'Eggs', 'Yoghurt', 'Guitar'], 3);
+    
+    q7 = new Question('Who\'s your mommy?', ['Ella', 'Amy', 'Aretha', 'Femke', 'all of the above!'], 4);
+    
+    q8 = new Question('What better than banana bread', ['More banana bread', 'Carrot cake', 'More banana bread and carrot cake', 'More banana bread and more carrot cake'], 3);
+    
+    allQuestions = [q1, q2, q3, q4, q5, q6, q7, q8];
+    
+    var randomNumber = Math.floor(Math.random() * allQuestions.length);
+    
+    allQuestions[randomNumber].displayQandA();
+    
+    var userInput = parseInt(prompt('Enter the NUMBER of your answer (or "exit"):'));
+    
+    allQuestions[randomNumber].isCorrect(userInput);
+})();
+*/
+
+(function() {
+    function Question(question, answers, correctAnswer) {
+        this.question = question;
+        this.answers = answers;
+        this.correctAnswer = correctAnswer;
+    }
+    
+    Question.prototype.displayQandA = function() {
+        console.log(this.question);
+
+        for (var i = 0; i < this.answers.length; i++) {
+            console.log((i + 1) + ' - ' + this.answers[i]);
+        }
+    }
+    
+    Question.prototype.isCorrect = function(userInput, callback) {
+    
+            var correctAnswerNumber = this.correctAnswer + 1;
+            var sc;
+
+            if (userInput === correctAnswerNumber) {
+                console.log(`>>> Answer #${userInput} is CORRECT! One point earned!`);
+                console.log('');
+
+                sc = callback(true);
+            } else if (userInput === 'exit' || userInput === 'quit') {
+                sc = callback(false);
+                console.log('');
+                console.log('FINAL SCORE: '+ sc);
+                console.log('exiting game - GOODBYE!! (refresh page to play again)');
+                return;
+            } else {
+                console.log(`>>> Nope! Answer #${userInput} was FALSE`);
+                console.log('');
+
+                sc = callback(false);
+            }
+            this.displayScore(sc);
+    }
+    
+    Question.prototype.displayScore = function(score) {
+        console.log('SCORE: ' + score);
+    }
+    
+    var q1 = new Question('What is your name?', ['Henk', 'Rob', 'Leon', 'Bert'], 1);
+    
+    var q2 = new Question('What is the sexiest color in the world?', ['green', 'black', 'pink', 'silver', 'maroon'], 3);
+    
+    var q3 = new Question('Who\'s your daddy?', ['James Brown', 'Bootsie Collins', 'Prince', 'Mick Jagger', 'all of the above!'], 4);
+    
+    var q4 = new Question('How soon is now?', ['in a bit', 'later gator', 'too soon, chump', 'what the?'], 0);
+    
+    var q5 = new Question('The most romantic Amsterdam hangout is?', ['Hotel Buiten', 'Lely', 'Toussaint', 'Steiger 4', 'all of the above!'], 4);
+    
+    var q6 = new Question('What\'s for breakfast?', ['Pizza', 'Eggs', 'Yoghurt', 'Guitar'], 3);
+    
+    var q7 = new Question('Who\'s your mommy?', ['Ella', 'Amy', 'Aretha', 'Femke', 'all of the above!'], 4);
+    
+    var q8 = new Question('What better than banana bread', ['More banana bread', 'Carrot cake', 'More banana bread and carrot cake', 'More banana bread and more carrot cake'], 3);
+    
+    var allQuestions = [q1, q2, q3, q4, q5, q6, q7, q8];
+
+    function score() {
+        var sc = 0;
+        return function(correct) {
+            if (correct) {
+                sc++;
+            }
+            return sc;
+        }
+    }
+    var keepScore = score();
 
     function nextQuestion() {
-        askQuestion();
-    }
     
-    function askQuestion() {
-        var numberOfQuestions = q.length;
-        var randomNumber = Math.floor(Math.random() * Math.floor(numberOfQuestions));
-        console.log(q[randomNumber].question);
+        var randomNumber = Math.floor(Math.random() * allQuestions.length);
         
-        var a = q[randomNumber].answers;
-        var numberOfAnswers = a.length;
-        for (i = 0; i < numberOfAnswers; i++) {
-            console.log((i + 1) + ' - ' + a[i]);
-        }
-        q[randomNumber].isCorrect();
-        if (gameVar[1] == 1) {
-            console.log('FINAL SCORE: ' + gameVar[0]);
-            init();
-            return;
-        } else {
+        allQuestions[randomNumber].displayQandA();
+        
+        var userInput = prompt('Enter the NUMBER of your answer (or "exit"):');
+        
+        if (userInput !== 'exit' && userInput !== 'quit') {
+            allQuestions[randomNumber].isCorrect(parseInt(userInput), keepScore);
             nextQuestion();
+        } else {
+            allQuestions[randomNumber].isCorrect(userInput, keepScore);
         }
     }
-    init();
-    askQuestion();   
-}
-)(allQuestions);
+
+    nextQuestion();
+
+})();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
