@@ -11,6 +11,17 @@ export const clearResults = () => {
     elements.searchResPages.innerHTML = '';
 };
 
+export const highlightSelected = id => {
+    // First, remove all existing active links (from previously selected results)
+    const resultsArr = Array.from(document.querySelectorAll('.results__link'));
+    resultsArr.forEach(el => {
+        el.classList.remove('results__link--active');
+    })
+
+    // Then highlight the selected search result
+    document.querySelector(`a[href="#${id}"]`).classList.add('results__link--active');
+}
+
 // 'Pasta with tomato and spinach'
 /*
 acc: 0 / acc + cur.length = 5 / newTitle = ['Pasta']
