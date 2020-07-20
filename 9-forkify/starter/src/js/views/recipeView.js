@@ -1,4 +1,4 @@
-import { elements, elementStrings } from './base';
+import { elements } from './base';
 import { Fraction } from 'fractional';
 
 export const clearRecipe = () => {
