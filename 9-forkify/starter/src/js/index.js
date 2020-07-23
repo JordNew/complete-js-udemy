@@ -16,12 +16,11 @@ import { elements, renderLoader, clearLoader } from './views/base';
 */
 const state = {};
 
-// TESTING
-window.state = state;
 
 /** 
  * SEARCH CONTROLLER 
  */
+
 const controlSearch = async () => {
     // 1. Get query from view
     const query = searchView.getInput();
@@ -75,7 +74,6 @@ elements.searchResPages.addEventListener('click', e => {
 const controlRecipe = async () => {
     // Get ID from url
     const id = window.location.hash.replace('#', '');
-    console.log(id);
 
     if (id) {
         // Prepare UI for changes
@@ -236,5 +234,3 @@ elements.recipe.addEventListener('click', e => {
     }
     // console.log(state.recipe);
 });
-
-window.l = new List();

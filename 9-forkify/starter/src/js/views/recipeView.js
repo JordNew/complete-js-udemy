@@ -9,16 +9,37 @@ const formatCount = count => {
     if (count) {
         // count = 2.5 --> 5/2 --> 2 1/2
         // count = 0.5 --> 1/2
-        const [int, dec] = count.toString().split('.').map(el => parseInt(el, 10));
+        
+        // round to a max of 4 decimals (reason: function cannot handle infinite decimals)
+        // Math.round returns int. Workaround: (count * 10000) / 10000
+        const newCount = Math.round(count * 10000) / 10000;
+        const [int, dec] = newCount.toString().split('.').map(el => parseInt(el, 10));
 
-        if (!dec) return count;
+        if (!dec) return newCount;
 
         if (int === 0) {
-            const fr = new Fraction(count);
-            return `${fr.numerator}/${fr.denominator}`;
+            const fr = new Fraction(newCount);
+            let newFraction = `${fr.numerator}/${fr.denominator}`;
+            if (newFraction === '3333/10000') {
+                newFraction = '1/3';
+                return newFraction;
+            } else if (newFraction === '6667/10000') {
+                newFraction = '2/3';
+                return newFraction;
+            }
+            return `${newFraction}`; 
         } else {
-            const fr = new Fraction(count - int);
-            return `${int} ${fr.numerator}/${fr.denominator}`;
+            const fr = new Fraction(newCount - int);
+            let newFraction = `${fr.numerator}/${fr.denominator}`;
+            if (newFraction === '3333/10000') {
+                newFraction = '1/3';
+                return newFraction;
+            } else if (newFraction === '6667/10000') {
+                newFraction = '2/3';
+                return newFraction;
+            }
+
+            return `${int} ${newFraction}`;
         }
     }
     return '?';
