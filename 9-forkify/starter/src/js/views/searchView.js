@@ -19,7 +19,7 @@ export const highlightSelected = id => {
     })
 
     // Then highlight the selected search result
-    document.querySelector(`a[href="#${id}"]`).classList.add('results__link--active');
+    document.querySelector(`.results__link[href="#${id}"]`).classList.add('results__link--active');
 }
 
 // 'Pasta with tomato and spinach'
@@ -30,7 +30,7 @@ acc: 9 / acc + cur.length = 15 / newTitle = ['Pasta', 'with', 'tomato']
 acc: 15 / acc + cur.length = 18 / newTitle = ['Pasta', 'with', 'tomato']
 acc: 18 / acc + cur.length = 25 / newTitle = ['Pasta', 'with', 'tomato']
 */
-const limitRecipeTitle = (title, limit = 17) => {
+export const limitRecipeTitle = (title, limit = 17) => {
     const newTitle = [];
     if (title.length > limit) {
         title.split(' ').reduce((acc, cur) => {

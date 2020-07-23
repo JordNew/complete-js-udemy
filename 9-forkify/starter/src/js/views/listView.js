@@ -1,5 +1,4 @@
 import { elements } from './base';
-import uniqid from 'uniqid';
 
 export const renderItem = item => {
     const markup = `
