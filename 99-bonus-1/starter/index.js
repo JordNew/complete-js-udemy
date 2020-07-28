@@ -8,6 +8,7 @@ const laptopData = JSON.parse(json);
 const server = http.createServer((req, res) => {
     
     const pathName = url.parse(req.url, true).pathname;
+    console.log(pathName);
     const id = url.parse(req.url, true).query.id;
 
     // PRODUCTS OVERVIEW
@@ -26,9 +27,10 @@ const server = http.createServer((req, res) => {
                 res.end(overviewOutput);
             });
         });  
-
+    }
+    
     // LAPTOP DETAIL
-    } else if (pathName === '/laptop' && id < laptopData.length && id >= 0) {
+    else if (pathName === '/laptop' && id < laptopData.length && id >= 0) {
         // HEADER
         res.writeHead(200, {'Content-type':'text/html'});
         
@@ -39,9 +41,18 @@ const server = http.createServer((req, res) => {
             const output = replaceTemplate(data, laptop);
             res.end(output);
         });
+    } 
 
-    // URL NOT FOUND    
-    } else {
+    // IMAGES
+    else if ((/\.(jpg|jpeg|png|gif)$/i).test(pathName)) {
+        fs.readFile(`${__dirname}/data/img${pathName}`, (err, data) => {
+            res.writeHead(200, {'Content-type':'image/jpg'});
+            res.end(data);
+        });
+    }
+
+    // URL NOT FOUND  
+    else {
         res.writeHead(404, {'Content-type':'text/html'});
         res.end('URL was not found on the server');
     }
